@@ -11,15 +11,16 @@ function CurrencyOverview({ currencies }) {
     <div className="currency-overview">
       <h2>Valutaöversikt</h2>
       <input
+        className="currency-overview-filter"
         type="text"
         value={filter}
         onChange={(event) => setFilter(event.target.value)}
         placeholder="Filtrera valuta..."
         aria-label="Filtrera valuta"
       />
-      <ul>
+      <ul className="currency-overview-list">
         {filteredCurrencies.map((currency) => (
-          <li key={currency.code}>
+          <li key={currency.code} className="currency-overview-item">
             {currency.code}: 1 {currency.code} = {currency.rate} SEK
           </li>
         ))}
