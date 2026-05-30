@@ -1,10 +1,7 @@
+import FavoritePairs from "../components/FavoritePairs";
+
 function FavoritesPage() {
-  return (
-    <div className="page-placeholder">
-      <h2>Favoritpar</h2>
-      <p>Här kommer sparade favoritpar att visas.</p>
-    </div>
-  );
+  return <FavoritePairs favorites={[]} onRemove={() => {}} />;
 }
 
 export default FavoritesPage;
