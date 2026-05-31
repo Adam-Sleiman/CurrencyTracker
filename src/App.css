@@ -360,6 +360,75 @@
   font-size: 0.95rem;
 }
 
+.currency-overview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.currency-overview-save-btn,
+.favorite-pairs-remove-btn {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-heading);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.currency-overview-save-btn:hover,
+.favorite-pairs-remove-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.favorite-pairs {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.favorite-pairs h2 {
+  color: var(--text-heading);
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.favorite-pairs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.favorite-pairs-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-heading);
+}
+
+.favorite-pairs-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.favorite-pairs-empty {
+  color: var(--text-muted);
+  padding: 8px 0 2px;
+}
+
 .currency-overview-item:last-child {
   border-bottom: none;
 }
@@ -371,6 +440,12 @@
 
   .currency-overview-item {
     padding: 11px 4px;
+  }
+
+  .currency-overview-row,
+  .favorite-pairs-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
