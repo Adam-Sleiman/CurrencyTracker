@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchSupportedCurrencies, fetchPairConversion } from "../services/api";
 import { addToHistory } from "../utils/localStorage";
 
-function CurrencyConverter({ onConversion }) {
+function CurrencyConverter({ onConversion, selectedPair }) {
   const [currencies, setCurrencies] = useState([]);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("SEK");
@@ -11,6 +11,18 @@ function CurrencyConverter({ onConversion }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currenciesLoading, setCurrenciesLoading] = useState(true);
+
+  useEffect(() => {
+    if (selectedPair?.from) {
+      setFromCurrency(selectedPair.from);
+      setResult(null);
+    }
+
+    if (selectedPair?.to) {
+      setToCurrency(selectedPair.to);
+      setResult(null);
+    }
+  }, [selectedPair]);
 
   useEffect(() => {
     fetchSupportedCurrencies()

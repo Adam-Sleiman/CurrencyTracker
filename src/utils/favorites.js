@@ -3,15 +3,24 @@ const FAVORITES_KEY = "currencytracker_favorites";
 function readFavorites() {
   try {
     const data = localStorage.getItem(FAVORITES_KEY);
-    return data ? JSON.parse(data) : [];
+    const favorites = data ? JSON.parse(data) : [];
+    return Array.isArray(favorites) ? favorites : [];
   } catch {
+    try {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify([]));
+    } catch {
+    }
     return [];
   }
 }
 
 function writeFavorites(favorites) {
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-  return favorites;
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    return favorites;
+  } catch {
+    return [];
+  }
 }
 
 export function getFavorites() {
@@ -19,23 +28,31 @@ export function getFavorites() {
 }
 
 export function saveFavorite(pair) {
-  const favorites = readFavorites();
-  const exists = favorites.some(
-    (favorite) => favorite.from === pair.from && favorite.to === pair.to
-  );
+  try {
+    const favorites = readFavorites();
+    const exists = favorites.some(
+      (favorite) => favorite.from === pair.from && favorite.to === pair.to
+    );
 
-  if (exists) {
-    return favorites;
+    if (exists) {
+      return favorites;
+    }
+
+    favorites.push(pair);
+    return writeFavorites(favorites);
+  } catch {
+    return writeFavorites([]);
   }
-
-  favorites.push(pair);
-  return writeFavorites(favorites);
 }
 
 export function removeFavorite(pair) {
-  const favorites = readFavorites().filter(
-    (favorite) => !(favorite.from === pair.from && favorite.to === pair.to)
-  );
+  try {
+    const favorites = readFavorites().filter(
+      (favorite) => !(favorite.from === pair.from && favorite.to === pair.to)
+    );
 
-  return writeFavorites(favorites);
+    return writeFavorites(favorites);
+  } catch {
+    return writeFavorites([]);
+  }
 }
