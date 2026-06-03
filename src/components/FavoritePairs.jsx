@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { getFavorites, removeFavorite } from "../utils/favorites";
 
-function FavoritePairs({ onSelect }) {
+function FavoritePairs({ onSelect, activePair }) {
   const [favorites, setFavorites] = useState([]);
-  const [selectedPairKey, setSelectedPairKey] = useState("");
 
   useEffect(() => {
     setFavorites(getFavorites());
   }, []);
 
   function handleSelect(pair) {
-    setSelectedPairKey(`${pair.from}-${pair.to}`);
     if (onSelect) {
       onSelect(pair);
     }
@@ -19,9 +17,6 @@ function FavoritePairs({ onSelect }) {
   function handleRemove(pair) {
     const updatedFavorites = removeFavorite(pair);
     setFavorites(updatedFavorites);
-    if (selectedPairKey === `${pair.from}-${pair.to}`) {
-      setSelectedPairKey("");
-    }
   }
 
   if (favorites.length === 0) {
@@ -43,13 +38,16 @@ function FavoritePairs({ onSelect }) {
     <div className="favorite-pairs">
       <h2>Favoritpar</h2>
       <ul className="favorite-pairs-list">
-        {favorites.map((pair) => (
+        {favorites.map((pair) => {
+          const isActive =
+            activePair &&
+            activePair.from === pair.from &&
+            activePair.to === pair.to;
+          return (
           <li
             key={`${pair.from}-${pair.to}`}
             className={`favorite-pairs-item ${
-              selectedPairKey === `${pair.from}-${pair.to}`
-                ? "favorite-pairs-item--active"
-                : ""
+              isActive ? "favorite-pairs-item--active" : ""
             }`}
           >
             <button
@@ -59,7 +57,7 @@ function FavoritePairs({ onSelect }) {
             >
               <span>{pair.from} → {pair.to}</span>
               <span className="favorite-pairs-select-label">
-                {selectedPairKey === `${pair.from}-${pair.to}` ? "Vald" : "Välj"}
+                {isActive ? "Vald" : "Välj"}
               </span>
             </button>
             <button
@@ -70,7 +68,8 @@ function FavoritePairs({ onSelect }) {
               Ta bort
             </button>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </div>
   );

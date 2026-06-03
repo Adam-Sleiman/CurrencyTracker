@@ -10,8 +10,12 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <CurrencyConverter onConversion={setHistory} selectedPair={selectedPair} />
-      <FavoritePairs onSelect={setSelectedPair} />
+      <CurrencyConverter
+        onConversion={setHistory}
+        selectedPair={selectedPair}
+        onPairChange={setSelectedPair}
+      />
+      <FavoritePairs onSelect={setSelectedPair} activePair={selectedPair} />
       <ConversionHistory history={history} onClear={setHistory} />
     </div>
   );
