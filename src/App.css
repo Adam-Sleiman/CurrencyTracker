@@ -603,6 +603,336 @@
   color: var(--text-muted);
 }
 
+/* ─── History / Simulation Page ─── */
+
+.history-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hist-sim-card,
+.hist-chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.hist-sim-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.hist-sim-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hist-sim-header h2 {
+  color: var(--text-heading);
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.hist-sim-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.hist-sim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hist-sim-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hist-sim-row .input-group {
+  flex: 1;
+  min-width: 160px;
+}
+
+.hist-sim-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hist-sim-pair .input-group {
+  flex: 1;
+  min-width: 150px;
+}
+
+.hist-swap-btn {
+  margin-bottom: 2px;
+}
+
+/* Simulation result fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hist-sim-result {
+  animation: fadeInUp 0.35s ease;
+  margin-top: 24px;
+}
+
+.hist-sim-rate-date {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Error message slide-in */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-message {
+  animation: slideDown 0.25s ease;
+}
+
+/* ─── Historical Chart ─── */
+
+.hist-chart-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hist-chart-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hist-chart-pair .input-group {
+  flex: 1;
+  min-width: 150px;
+}
+
+.hist-chart-arrow {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  padding-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.hist-period-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hist-period-btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.hist-period-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.hist-period-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.hist-chart-canvas {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hist-chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hist-chart-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+/* Stats row below chart */
+.hist-chart-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-top: 16px;
+  animation: fadeInUp 0.3s ease;
+}
+
+.hist-chart-stat {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.hist-chart-stat:last-child {
+  border-right: none;
+}
+
+.hist-chart-stat dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+
+.hist-chart-stat dd {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.stat-high {
+  color: var(--success) !important;
+}
+
+.stat-low {
+  color: var(--error) !important;
+}
+
+.stat-positive {
+  color: var(--success) !important;
+}
+
+.stat-negative {
+  color: var(--error) !important;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 640px) {
+  .hist-sim-card,
+  .hist-chart-card {
+    padding: 20px;
+  }
+
+  .hist-sim-row {
+    flex-direction: column;
+  }
+
+  .hist-sim-pair {
+    flex-direction: column;
+  }
+
+  .hist-swap-btn {
+    align-self: center;
+  }
+
+  .hist-chart-pair {
+    flex-direction: column;
+  }
+
+  .hist-chart-arrow {
+    display: none;
+  }
+
+  .hist-chart-canvas {
+    height: 240px;
+  }
+
+  .hist-chart-stats {
+    flex-wrap: wrap;
+  }
+
+  .hist-chart-stat {
+    flex: 1 1 48%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hist-chart-stat:nth-child(2) {
+    border-right: none;
+  }
+
+  .hist-chart-stat:nth-child(3),
+  .hist-chart-stat:nth-child(4) {
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hist-chart-controls {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .hist-chart-pair {
+    flex-wrap: nowrap;
+  }
+
+  .hist-chart-canvas {
+    height: 340px;
+  }
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   .navbar {
