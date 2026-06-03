@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchSupportedCurrencies, fetchPairConversion } from "../services/api";
 import { addToHistory } from "../utils/localStorage";
 
-function CurrencyConverter({ onConversion, selectedPair }) {
+function CurrencyConverter({ onConversion, selectedPair, onPairChange }) {
   const [currencies, setCurrencies] = useState([]);
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("SEK");
@@ -41,6 +41,9 @@ function CurrencyConverter({ onConversion, selectedPair }) {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
     setResult(null);
+    if (onPairChange) {
+      onPairChange({ from: toCurrency, to: fromCurrency });
+    }
   }
 
   async function handleCopy() {
@@ -121,6 +124,9 @@ function CurrencyConverter({ onConversion, selectedPair }) {
               onChange={(e) => {
                 setFromCurrency(e.target.value);
                 setResult(null);
+                if (onPairChange) {
+                  onPairChange({ from: e.target.value, to: toCurrency });
+                }
               }}
               disabled={currenciesLoading}
             >
@@ -149,6 +155,9 @@ function CurrencyConverter({ onConversion, selectedPair }) {
               onChange={(e) => {
                 setToCurrency(e.target.value);
                 setResult(null);
+                if (onPairChange) {
+                  onPairChange({ from: fromCurrency, to: e.target.value });
+                }
               }}
               disabled={currenciesLoading}
             >
