@@ -52,7 +52,7 @@ export async function fetchHistoricalRate(date, baseCurrency, targetCurrency) {
   const rate = Array.isArray(json) ? json[0]?.rate : null;
   if (rate == null)
     throw new Error(
-      "No exchange rate data for this date. Try a weekday or a more recent date."
+      "Ingen växelkursdata för detta datum. Prova en vardag eller ett nyare datum."
     );
   return rate;
 }

@@ -52,7 +52,7 @@ function HistoricalChart() {
 
   useEffect(() => {
     if (baseCurrency === targetCurrency) {
-      setError("Base and target currencies must be different.");
+      setError("Valutorna måste vara olika.");
       setChartData(null);
       return;
     }
@@ -72,7 +72,7 @@ function HistoricalChart() {
           a.localeCompare(b)
         );
         if (sorted.length === 0) {
-          setError("No historical data available for this currency pair.");
+          setError("Ingen historisk data tillgänglig för detta valutapar.");
           return;
         }
         const labels = sorted.map(([d]) => d);
@@ -158,20 +158,15 @@ function HistoricalChart() {
 
   return (
     <section className="hist-chart-card" aria-labelledby="hist-chart-heading">
-      <div className="hist-sim-header">
-        <span className="hist-sim-icon" aria-hidden="true">📈</span>
-        <div>
-          <h2 id="hist-chart-heading">Exchange Rate History</h2>
-          <p className="hist-sim-description">
-            Visualize how a currency pair has moved over time.
-          </p>
-        </div>
-      </div>
+      <h2 id="hist-chart-heading">Kurshistorik</h2>
+      <p className="hist-subtitle">
+        Visualisera hur ett valutapars kurs har förändrats över tid.
+      </p>
 
       <div className="hist-chart-controls">
         <div className="hist-chart-pair">
           <div className="input-group">
-            <label htmlFor="chart-base">Base</label>
+            <label htmlFor="chart-base">Bas</label>
             <select
               id="chart-base"
               value={baseCurrency}
@@ -188,7 +183,7 @@ function HistoricalChart() {
           <div className="hist-chart-arrow" aria-hidden="true">→</div>
 
           <div className="input-group">
-            <label htmlFor="chart-target">Target</label>
+            <label htmlFor="chart-target">Till</label>
             <select
               id="chart-target"
               value={targetCurrency}
@@ -206,7 +201,7 @@ function HistoricalChart() {
         <div
           className="hist-period-btns"
           role="group"
-          aria-label="Select time period"
+          aria-label="Välj tidsperiod"
         >
           {PERIODS.map(({ label }) => (
             <button
@@ -232,15 +227,15 @@ function HistoricalChart() {
         role="img"
         aria-label={
           chartData
-            ? `Line chart of ${chartData.base} to ${chartData.target} exchange rate over ${period}`
-            : "Exchange rate chart"
+            ? `Linjediagram över ${chartData.base}/${chartData.target} växelkurs under ${period}`
+            : "Växelkursdiagram"
         }
         aria-busy={loading}
       >
         {loading && (
           <div className="hist-chart-loading" aria-live="polite">
             <div className="hist-chart-spinner" aria-hidden="true" />
-            <span>Loading chart data...</span>
+            <span>Laddar diagramdata...</span>
           </div>
         )}
         {!loading && chartConfig && (
@@ -249,26 +244,22 @@ function HistoricalChart() {
       </div>
 
       {chartData && (
-        <dl className="hist-chart-stats" aria-label="Rate statistics">
+        <dl className="hist-chart-stats" aria-label="Kursstatistik">
           <div className="hist-chart-stat">
-            <dt>Latest</dt>
+            <dt>Senaste</dt>
             <dd>{latestRate?.toFixed(5)}</dd>
           </div>
           <div className="hist-chart-stat">
-            <dt>High</dt>
+            <dt>Högst</dt>
             <dd className="stat-high">{maxRate?.toFixed(5)}</dd>
           </div>
           <div className="hist-chart-stat">
-            <dt>Low</dt>
+            <dt>Lägst</dt>
             <dd className="stat-low">{minRate?.toFixed(5)}</dd>
           </div>
           <div className="hist-chart-stat">
-            <dt>Change</dt>
-            <dd
-              className={
-                pctChange >= 0 ? "stat-positive" : "stat-negative"
-              }
-            >
+            <dt>Förändring</dt>
+            <dd className={pctChange >= 0 ? "stat-positive" : "stat-negative"}>
               {pctChange >= 0 ? "+" : ""}
               {pctChange}%
             </dd>

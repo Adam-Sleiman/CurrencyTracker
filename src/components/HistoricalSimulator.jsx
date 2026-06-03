@@ -37,11 +37,11 @@ function HistoricalSimulation() {
     e.preventDefault();
     const parsed = parseFloat(amount);
     if (!parsed || parsed <= 0) {
-      setError("Please enter a valid positive amount.");
+      setError("Ange ett giltigt belopp.");
       return;
     }
     if (fromCurrency === toCurrency) {
-      setError("From and To currencies must be different.");
+      setError("Valutorna måste vara olika.");
       return;
     }
 
@@ -68,26 +68,20 @@ function HistoricalSimulation() {
 
   return (
     <section className="hist-sim-card" aria-labelledby="hist-sim-heading">
-      <div className="hist-sim-header">
-        <span className="hist-sim-icon" aria-hidden="true">🕰️</span>
-        <div>
-          <h2 id="hist-sim-heading">Historical Currency Simulation</h2>
-          <p className="hist-sim-description">
-            Convert using the actual exchange rate from any date up to 30 years
-            ago.
-          </p>
-        </div>
-      </div>
+      <h2 id="hist-sim-heading">Historisk valutasimulering</h2>
+      <p className="hist-subtitle">
+        Konvertera med den faktiska växelkursen från valfritt datum upp till 30 år bakåt.
+      </p>
 
       <form
         onSubmit={handleConvert}
         className="hist-sim-form"
         noValidate
-        aria-label="Historical currency conversion form"
+        aria-label="Historiskt konverteringsformulär"
       >
         <div className="hist-sim-row">
           <div className="input-group">
-            <label htmlFor="hist-date">Date</label>
+            <label htmlFor="hist-date">Datum</label>
             <input
               id="hist-date"
               type="date"
@@ -104,13 +98,13 @@ function HistoricalSimulation() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="hist-amount">Amount</label>
+            <label htmlFor="hist-amount">Belopp</label>
             <input
               id="hist-amount"
               type="number"
               min="0.01"
               step="any"
-              placeholder="Enter amount..."
+              placeholder="Ange belopp..."
               value={amount}
               onChange={(e) => {
                 setAmount(e.target.value);
@@ -124,7 +118,7 @@ function HistoricalSimulation() {
 
         <div className="hist-sim-pair">
           <div className="input-group">
-            <label htmlFor="hist-from">From</label>
+            <label htmlFor="hist-from">Från</label>
             <select
               id="hist-from"
               value={fromCurrency}
@@ -143,15 +137,15 @@ function HistoricalSimulation() {
 
           <button
             type="button"
-            className="swap-btn hist-swap-btn"
+            className="swap-btn"
             onClick={handleSwap}
-            aria-label="Swap currencies"
+            aria-label="Byt valutor"
           >
             ⇄
           </button>
 
           <div className="input-group">
-            <label htmlFor="hist-to">To</label>
+            <label htmlFor="hist-to">Till</label>
             <select
               id="hist-to"
               value={toCurrency}
@@ -175,16 +169,12 @@ function HistoricalSimulation() {
           disabled={loading}
           aria-busy={loading}
         >
-          {loading ? "Converting..." : "Convert at Historical Rate"}
+          {loading ? "Konverterar..." : "Konvertera historiskt"}
         </button>
       </form>
 
       {error && (
-        <p
-          className="error-message"
-          role="alert"
-          aria-live="assertive"
-        >
+        <p className="error-message" role="alert" aria-live="assertive">
           {error}
         </p>
       )}
@@ -193,7 +183,7 @@ function HistoricalSimulation() {
         <div
           className="result-card hist-sim-result"
           role="region"
-          aria-label="Conversion result"
+          aria-label="Konverteringsresultat"
           aria-live="polite"
         >
           <p className="result-amount">
@@ -212,10 +202,7 @@ function HistoricalSimulation() {
           <p className="result-rate">
             1 {result.from} = {result.rate.toFixed(6)} {result.to}
           </p>
-          <p className="hist-sim-rate-date">
-            <span aria-hidden="true">📅</span> Rate from{" "}
-            {formatDate(result.date)}
-          </p>
+          <p className="hist-rate-date">Kurs från {formatDate(result.date)}</p>
         </div>
       )}
     </section>

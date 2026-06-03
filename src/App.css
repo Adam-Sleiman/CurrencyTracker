@@ -20,7 +20,7 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 64px;
   box-shadow: var(--shadow);
   position: sticky;
@@ -45,6 +45,9 @@
   list-style: none;
   display: flex;
   gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .navbar-links a {
@@ -603,6 +606,212 @@
   color: var(--text-muted);
 }
 
+/* History Page */
+.history-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hist-sim-card,
+.hist-chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+}
+
+.hist-sim-card h2,
+.hist-chart-card h2 {
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.hist-subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.hist-sim-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hist-sim-row {
+  display: flex;
+  gap: 16px;
+}
+
+.hist-sim-row .input-group {
+  flex: 1;
+}
+
+.hist-sim-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.hist-sim-pair .input-group {
+  flex: 1;
+}
+
+.hist-sim-result {
+  margin-top: 24px;
+  animation: fadeInUp 0.3s ease;
+}
+
+.hist-rate-date {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chart controls */
+.hist-chart-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hist-chart-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.hist-chart-pair .input-group {
+  flex: 1;
+}
+
+.hist-chart-arrow {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  padding-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.hist-period-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hist-period-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hist-period-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.hist-period-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Chart area */
+.hist-chart-canvas {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hist-chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hist-chart-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+/* Stats row */
+.hist-chart-stats {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.hist-chart-stat {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+}
+
+.hist-chart-stat:last-child {
+  border-right: none;
+}
+
+.hist-chart-stat dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+
+.hist-chart-stat dd {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.stat-high  { color: var(--success) !important; }
+.stat-low   { color: var(--error) !important; }
+.stat-positive { color: var(--success) !important; }
+.stat-negative { color: var(--error) !important; }
+
 /* Responsive */
 @media (max-width: 640px) {
   .navbar {
@@ -613,6 +822,8 @@
   }
 
   .navbar-links {
+    position: static;
+    transform: none;
     width: 100%;
     justify-content: center;
   }
@@ -624,6 +835,11 @@
 
   .main-content {
     padding: 16px 12px;
+  }
+
+  .input-group {
+    min-width: 0;
+    width: 100%;
   }
 
   .converter-card,
@@ -647,5 +863,63 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+  }
+
+  .hist-sim-card,
+  .hist-chart-card {
+    padding: 20px;
+  }
+
+  .hist-sim-row {
+    flex-direction: column;
+  }
+
+  .hist-sim-pair {
+    flex-direction: column;
+  }
+
+  .hist-sim-pair .swap-btn {
+    align-self: center;
+  }
+
+  .hist-chart-pair {
+    flex-direction: column;
+  }
+
+  .hist-chart-arrow {
+    display: none;
+  }
+
+  .hist-chart-canvas {
+    height: 220px;
+  }
+
+  .hist-chart-stats {
+    flex-wrap: wrap;
+  }
+
+  .hist-chart-stat {
+    flex: 1 1 48%;
+  }
+
+  .hist-chart-stat:nth-child(2) {
+    border-right: none;
+  }
+
+  .hist-chart-stat:nth-child(3),
+  .hist-chart-stat:nth-child(4) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (min-width: 768px) {
+  .hist-chart-controls {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .hist-chart-canvas {
+    height: 340px;
   }
 }
