@@ -11,6 +11,7 @@ function CurrencyConverter({ onConversion, selectedPair }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currenciesLoading, setCurrenciesLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (selectedPair?.from) {
@@ -42,6 +43,21 @@ function CurrencyConverter({ onConversion, selectedPair }) {
     setResult(null);
   }
 
+  async function handleCopy() {
+    if (!result) return;
+    const text = `${result.amount.toLocaleString("sv-SE")} ${result.from} = ${result.result.toLocaleString(
+      "sv-SE",
+      { minimumFractionDigits: 2, maximumFractionDigits: 4 }
+    )} ${result.to}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError("Kunde inte kopiera till urklipp");
+    }
+  }
+
   async function handleConvert(e) {
     e.preventDefault();
     if (!amount || parseFloat(amount) <= 0) {
@@ -52,6 +68,7 @@ function CurrencyConverter({ onConversion, selectedPair }) {
     setLoading(true);
     setError(null);
     setResult(null);
+    setCopied(false);
 
     try {
       const data = await fetchPairConversion(
@@ -171,6 +188,14 @@ function CurrencyConverter({ onConversion, selectedPair }) {
           <p className="result-rate">
             1 {result.from} = {result.rate} {result.to}
           </p>
+          <button
+            type="button"
+            className="copy-btn"
+            onClick={handleCopy}
+            aria-label="Kopiera resultat till urklipp"
+          >
+            {copied ? "Kopierad!" : "Kopiera"}
+          </button>
         </div>
       )}
     </div>

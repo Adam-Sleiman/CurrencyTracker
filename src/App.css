@@ -209,6 +209,24 @@
   color: var(--text-muted);
 }
 
+.copy-btn {
+  margin-top: 16px;
+  background: none;
+  border: 1px solid var(--success);
+  color: var(--success);
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: var(--success);
+  color: white;
+}
+
 /* Error */
 .error-message {
   margin-top: 16px;
