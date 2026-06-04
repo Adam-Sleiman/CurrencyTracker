@@ -43,6 +43,14 @@ Angular är ett fullständigt ramverk med inbyggt beroendeinjektionssystem, Type
 
 **Slutsats:** Reacts komponentbaserade modell, breda paketutbud och välkända hooks-mönster gjorde det till det mest pragmatiska valet för detta projekt.
 
+
+Referenser
+React Officiell Dokumentation: react.dev
+Angular Officiell Dokumentation: angular.dev
+Vue.js Officiell Dokumentation: vuejs.org
+Stack Overflow Developer Survey: stackoverflow.co
+
+
 ---
 
 ## API-användning
