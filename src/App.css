@@ -20,7 +20,7 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 64px;
   box-shadow: var(--shadow);
   position: sticky;
@@ -45,9 +45,6 @@
   list-style: none;
   display: flex;
   gap: 4px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .navbar-links a {
