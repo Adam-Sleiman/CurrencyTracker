@@ -48,7 +48,7 @@ Referenser
 React Officiell Dokumentation: react.dev
 Angular Officiell Dokumentation: angular.dev
 Vue.js Officiell Dokumentation: vuejs.org
-Stack Overflow Developer Survey: stackoverflow.co
+Stack Overflow Developer Survey: stackoverflow.com
 
 
 ---
